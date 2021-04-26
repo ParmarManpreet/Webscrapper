@@ -1,13 +1,15 @@
-<!DOCTYPE html>
+{% extends "bootstrap/base.html" %}
 
-<html lang="en">
-    <head>
-        <title>Real Estate Scrapper</title>
-    </head>
-    <body>
-        <form action="/analyse">
-            <input name="url" type="url">
-            <input type="submit" value="Analyse property">
-        </form>
-    </body>
-</html>
+{% block title  %}
+    Property Analysis Page
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+    <!--...-->
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Add property information below</h1>
+{% endblock %}
