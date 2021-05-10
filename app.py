@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup as bs4
-import requests
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
+import gspread
 import requests
 import os
 
@@ -14,8 +14,10 @@ def index():
     return render_template("index.html")
 
 
-#@app.route("/analyse")
-#def analyse():
+@app.route("/analyse", methods=['POST'])
+def analyse():
+
+    return render_template("analyse.html")
     #prices=[]
     #url = request.args.get("url")
     #newurl = requests.get(url)
@@ -29,4 +31,5 @@ def index():
 
 
 if __name__ == '__main__':
+    app.debug=True
     app.run()
