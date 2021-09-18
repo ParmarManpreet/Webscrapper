@@ -29,7 +29,6 @@ def analyse():
 
         return render_template("analyse.html")
 
-#THIS IS THE MAIN, FIRST THING THAT RUNS IN THE CODE
 if __name__ == '__main__':
     app.debug = True
     app.run()
