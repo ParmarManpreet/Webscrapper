@@ -9,12 +9,12 @@ import os
 app = Flask(__name__)
 Bootstrap(app)
 
-
+#FIRST PAGE
 @app.route('/')
 def index():
     return render_template("index.html")
 
-
+#ANALYSIS PAGE
 @app.route("/analyse", methods=['POST'])
 def analyse():
     if request.method == 'POST':
@@ -29,29 +29,7 @@ def analyse():
 
         return render_template("analyse.html")
 
-        #spreadsheet_id = '1ag4C3fVMZRnoBeE3maBOB1nygAbNWF3uQYyi5P43l5M'
-        #gc = gspread.service_account(filename='credentials.json')
-        #sh = gc.open_by_key(spreadsheet_id)
-        #analysis_worksh = sh.sheet1
-
-        #analysis_worksh.update_cell(2,3, "test2")
-        #price = request.form["prop_price"]
-        #analysis_worksh.update_cell(2, 3, price)
-        #return render_template("analyse.html")
-
-
-        #prices=[]
-        #url = request.args.get("url")
-        #newurl = requests.get(url)
-        #soup = bs4(newurl.text, 'html.parser')
-
-        #for tags in soup.findAll(attrs={"class" : "d-text d-fontSize--larger"}):
-            #price = tags.getText()
-            #prices.append(price)
-        # print(soup1)
-        #return render_template("analyse.html", name=prices)
-
-
+#THIS IS THE MAIN, FIRST THING THAT RUNS IN THE CODE
 if __name__ == '__main__':
     app.debug = True
     app.run()
