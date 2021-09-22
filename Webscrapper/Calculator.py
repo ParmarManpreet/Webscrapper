@@ -1,52 +1,64 @@
+class Calculations:
+    downP = 0
+    totalCash = 0
+    mortgageAmount = 0
+    monthExpense = []
+    monthProfit = []
+    roi = []
+    def __init__(self, price, down, rent, expense, tax, interest):
+        self.price = price
+        self.down = down
+        self.rent = rent
+        self.expense = expense
+        self.tax = tax
+        self.interest = interest
+
 
 #call calculator functions
 #must convert variables from string to int
-def calculateDown(price, down):
+    def downPayment(self):
     #calculate downpayment
-    downP = price * down/100
-    return downP
+        self.downP = self.price * self.down / 100
+        return self.downP
 
-def calculateCost(price, downPayment):
-    #calculate closing and total cash needed
-    closing = price*0.02
-    totalCash = downPayment + closing
-    return totalCash
+    def totalCost(self):
+        #calculate closing and total cash needed
+        closing = self.price*0.02
+        self.totalCash = self.downP + closing
+        return self.totalCash
 
-def calculateMortgage(price, downPayment, interest):
-    principal = price - downPayment
-    #monthly interest
-    m_int = interest/12/100
-    #compound interest
-    #term in months = 25 years * 12 month = 300
-    c_int = (1 + m_int)**300
-    mortgage = (principal*m_int*c_int)/(c_int-1)
-    return mortgage
+    def mortgageCost(self):
+        principal = self.price - self.downP
+        #monthly interest
+        m_int = self.interest/12/100
+        #compound interest
+        #term in months = 25 years * 12 month = 300
+        c_int = (1 + m_int)**300
+        self.mortgageAmount = (principal*m_int*c_int)/(c_int-1)
+        return self.mortgageAmount
 
-def calculateExpense(rent, expense, mortgage, tax):
-    ##calculate worst and best case expense
-    #Expense is array w 2 elements, entry [0] = worst case, entry [1] = best case
-    monthExpense = []
-    reMa = 0.05 * rent
-    vac = 0.03 * rent
-    capExp = 0.05 * rent
-    proMang = 0.07 * rent
-    insurance = 1500
+    def monthlyExpense(self):
+        ##calculate worst and best case expense
+        #Expense is array w 2 elements, entry [0] = worst case, entry [1] = best case
+        reMa = 0.05 * self.rent
+        vac = 0.03 * self.rent
+        capExp = 0.05 * self.rent
+        proMang = 0.07 * self.rent
+        insurance = 1500
 
-    monthExpense.append(reMa + vac + capExp + proMang + expense + tax / 12 + mortgage + insurance / 12)
-    monthExpense.append(expense+tax/12+mortgage+insurance/12+proMang)
+        self.monthExpense.append(reMa + vac + capExp + proMang + self.expense + self.tax / 12 + self.mortgageAmount + insurance / 12)
+        self.monthExpense.append(self.expense+ self.tax/12+ self.mortgageAmount+ insurance/12+ proMang)
 
-    return monthExpense
+        return self.monthExpense
 
-def calculateProfit(rent, monthExpense):
-    monthProfit = []
-    monthProfit.append(rent - monthExpense[0])
-    monthProfit.append(rent - monthExpense[1])
+    def profit(self):
+        self.monthProfit.append(self.rent - self.monthExpense[0])
+        self.monthProfit.append(self.rent - self.monthExpense[1])
 
-    return monthProfit
+        return self.monthProfit
 
-def calculateRoi(monthProfit, totalCost):
-    roi = []
-    roi.append(monthProfit[0] * 12 / totalCost * 100)
-    roi.append(monthProfit[1] * 12 / totalCost * 100)
+    def roiPercent(self):
+        self.roi.append(self.monthProfit[0] * 12 / self.totalCash * 100)
+        self.roi.append(self.monthProfit[1] * 12 / self.totalCash * 100)
 
-    return roi
+        return self.roi

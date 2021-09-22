@@ -2,8 +2,7 @@ from bs4 import BeautifulSoup as bs4
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 
-from Webscrapper.Calculator import calculateDown, calculateCost, calculateMortgage, \
-    calculateExpense, calculateProfit, calculateRoi
+from Webscrapper.Calculator import  Calculations
 from googleAPI import sheetsUpd
 import gspread
 import requests
@@ -29,35 +28,21 @@ def analyse():
         tax = int(request.form["prop_tax"])
         interest = int(request.form["prop_interest"])
 
+        calculationResults = Calculations(price, down, rent, expense, tax, interest)
+
+        calculationResults.downPayment()
         ##sheetsUpd(price, down, rent, expense, tax, interest)
-        downPayment = calculateDown(price, down)
-        totalCost = calculateCost(price,downPayment)
-        mortgage = calculateMortgage(price, downPayment, interest)
 
         #array of size 2, [0] = worst case, [1] = best case
-        monthExp = calculateExpense(rent, expense, mortgage, tax)
-        monthWorstCaseExp = monthExp[0]
-        monthBestCaseExp = monthExp[1]
-        print(monthWorstCaseExp)
-        print(monthBestCaseExp)
-
-        monthProfit = calculateProfit(rent, monthExp)
-        monthWorstProfit = monthProfit[0]
-        monthBestProfit = monthProfit[1]
-
-        roi = calculateRoi(monthProfit, totalCost)
-
-        roiWorst = roi[0]
-        roiBest = roi[1]
-
-
-        print(mortgage)
-        print(monthWorstProfit)
-        print(monthBestProfit)
-        print(totalCost)
-        print (roiWorst)
-        print(roiBest)
-
+        print(calculationResults.downPayment())
+        print(calculationResults.totalCost())
+        print(calculationResults.mortgageCost())
+        print(calculationResults.monthlyExpense()[0])
+        print(calculationResults.profit()[0])
+        print(calculationResults.roiPercent()[0])
+        print(calculationResults.monthlyExpense()[1])
+        print(calculationResults.profit()[1])
+        print(calculationResults.roiPercent()[1])
 
 
         return render_template("analyse.html")
