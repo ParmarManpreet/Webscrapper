@@ -1,5 +1,9 @@
+from typing import Any
+
+
 class Calculations:
     downP = 0
+
     totalCash = 0
     mortgageAmount = 0
     monthExpense = []
@@ -13,6 +17,11 @@ class Calculations:
         self.tax = tax
         self.interest = interest
 
+##in service class-->call getters and setters
+    def __getdownP__(self, downP: int) -> Any:
+        return super().__getdownP__(downP)
+##add getters/setters, put all calculations and logic in another separate class (CalculatorService
+##repository-Encapsulation-->repository class-->communication with database, no logic: wall b/w service class and database
 
 #call calculator functions
 #must convert variables from string to int
@@ -28,6 +37,7 @@ class Calculations:
         return self.totalCash
 
     def mortgageCost(self):
+        #np.pmt -->mortgage calculator directly
         principal = self.price - self.downP
         #monthly interest
         m_int = self.interest/12/100
